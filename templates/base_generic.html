@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EcoTech{% endblock %}</title>
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <nav class="container">
+            <!-- This div is now a flex container -->
+            <div class="nav-container">
+                <!-- Company Name on the left -->
+                <div class="company-name" >
+                    <a href="/" style="text-align: left">EcoTech</a>
+                </div>
+
+                <!-- Navigation Buttons on the right -->
+                <div class="nav-buttons">
+                    {% block nav_buttons %}
+                        <!-- Default buttons -->
+                        <a href="/register" class="button button-primary">Sign up</a>
+                    {% endblock nav_buttons %}
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Thin line separator -->
+    <hr class="separator">
+
+    <!-- Main Content Block -->
+    <main class="container content-body">
+        {% block content %}
+            <!-- Content from child templates will be inserted here -->
+            <h1>Welcome to our Website!</h1>
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

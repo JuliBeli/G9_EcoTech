@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div style="display: block;">
+    <h2 style="text-align: center;">Welcome Back</h2>
+  </div>
+  <div style="display: block;">
+    <form method="post" style="display: flex; flex-direction: column; align-items: center;">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+{% for field in form %}
+  <div style="margin-bottom: 20px; width: 400px;">
+    <div style="display: block;margin-bottom: 10px;">
+      {{ field.label_tag }}
+    </div>
+    <div style="display: block;text-align: center;">
+      {{ field }}
+    </div>
+  </div>
+{% endfor %}
+{#      <div style="display: ; justify-content: space-between; width: 120px;">#}
+        <button type="submit" class="button button-primary" style="text-align:center;width: 400px ">Login</button>
+{#      </div>#}
+    </form>
+      <div class="footer-links">
+        <a href="/reset" style="color: darkgrey">Forgot password?</a>
+    </div>
+  </div>
+{% endblock %}

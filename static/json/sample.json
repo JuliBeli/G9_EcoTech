@@ -1,0 +1,20 @@
+[
+    {
+        "userid": "user1",
+        "username": "JohnDoe",
+        "post_time": "2023-10-01 12:00:00",
+        "thumbs_up_int": 10,
+        "content": "This is a sample post.",
+        "data_type": "2",
+        "title": "Title1"
+    },
+    {
+        "userid": "user2",
+        "username": "JaneDoe",
+        "post_time": "2023-10-02 14:30:00",
+        "thumbs_up_int": 5,
+        "content": "Another sample post.",
+        "data_type": "2",
+        "title": "Title2"
+    }
+]
