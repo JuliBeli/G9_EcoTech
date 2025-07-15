@@ -1,4 +1,4 @@
 
 from django.apps import AppConfig
 
-default_app_config = 'weibo_app.apps.WeiboAppConfig'
+default_app_config = 'post_app.apps.PostAppConfig'

@@ -60,12 +60,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# 处理跨域
-CORS_ALLOW_CREDENTIALS = True  # 指明在跨域访问中，后端是否支持对cookie的操作。
-#跨域增加忽略
-CORS_ORIGIN_ALLOW_ALL = True  # 允许所有跨域请求
-# 添加白名单
+# cookies when CORS
+CORS_ALLOW_CREDENTIALS = True
+#allow all CORS
+CORS_ORIGIN_ALLOW_ALL = True
+#CORS white list
 CORS_ORIGIN_WHITELIST = (
     # '*'
     'http://*.*.*:*',
@@ -75,7 +74,6 @@ CORS_ORIGIN_WHITELIST = (
     #'http://127.0.0.1:5500',
 )
 
-# 跨域允许的操作
 CORS_ALLOW_METHODS = (
     'DELETE',
     'GET',
@@ -86,7 +84,6 @@ CORS_ALLOW_METHODS = (
     'VIEW',
 )
 
-# 跨域允许的请求头
 CORS_ALLOW_HEADERS = (
     'XMLHttpRequest',
     'X_FILENAME',
@@ -126,26 +123,26 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "ugcp",#database name
-        "USER": "root",#database user name
-        "PASSWORD": "root",#password
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
-        "OPTIONS": {
-            'charset': 'utf8mb4',
-        },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "ugcp",#database name
+#         "USER": "root",#database user name
+#         "PASSWORD": "root",#password
+#         "HOST": "127.0.0.1",
+#         "PORT": "3306",
+#         "OPTIONS": {
+#             'charset': 'utf8mb4',
+#         },
+#     }
+# }
 
 
 # Password validation
@@ -195,3 +192,6 @@ LANGUAGES = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

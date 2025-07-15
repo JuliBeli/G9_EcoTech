@@ -1,27 +1,26 @@
 # Create your views here.
 
 from datetime import datetime
-from django import forms
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 from rest_framework.renderers import JSONRenderer
 
+from post_app.forms import CustomAuthenticationForm, CustomUserCreationForm, PostForm
+from post_app.models import PostRaw
 
-class JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
+
+# class JSONResponse(HttpResponse):
+#     """
+#     An HttpResponse that renders its content into JSON.
+#     """
+#     def __init__(self, data, **kwargs):
+#         content = JSONRenderer().render(data)
+#         kwargs['content_type'] = 'application/json'
+#         super(JSONResponse, self).__init__(content, **kwargs)
 
 @never_cache
 def index(request):
@@ -31,14 +30,6 @@ def index(request):
     # }
     # return render(request, 'index.html', context)
     return render(request, 'index.html')
-
-
-# register form
-class CustomAuthenticationForm(AuthenticationForm):
-    def __init__(self, request=None, *args, **kwargs):
-        super().__init__(request, *args, **kwargs)  # Correctly pass the request and other arguments
-        for field_i in self.fields:
-            self.fields[field_i].widget.attrs.update({'class': 'large-input'})
 
 @never_cache
 def login_view(request):
@@ -61,28 +52,6 @@ def login_view(request):
         form = CustomAuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
 
-# register form
-class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-
-    class Meta:
-        model = User
-        fields = ("username", "email", "password1")
-
-    def __init__(self, *args, **kwargs):
-        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
-        for field_i in self.fields:
-            self.fields[field_i].widget.attrs.update({'class': 'large-input'})
-        # Remove the password confirmation field
-        if 'password2' in self.fields:
-            del self.fields['password2']
-
-    def save(self, commit=True):
-        user = super(CustomUserCreationForm, self).save(commit=False)
-        user.email = self.cleaned_data.get('email')
-        if commit:
-            user.save()
-        return user
 
 @never_cache
 def register_request(request):
@@ -95,15 +64,19 @@ def register_request(request):
         form = CustomUserCreationForm()
     return render(request, "registration/register.html", {"form": form})
 
+# about us page
 def about(request):
     return render(request, 'about.html')
 
+#contact us page
 def contact(request):
     return render(request, 'contact.html')
 
+#reset password page
 def reset(request):
     return render(request, 'reset.html')
 
+# main page after login
 @never_cache
 @login_required
 def main(request):
@@ -113,3 +86,28 @@ def main(request):
     }
     return render(request, 'main.html', context)
     # return render(request, 'index.html')
+
+# create new post page
+# @login_required
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('blog')
+    else:
+        form = PostForm()
+    return render(request, 'create_post.html', {'form': form})
+
+# Display all posts created by user
+def blog(request):
+    posts = PostRaw.objects.filter(post_type=2).order_by('-created_at')
+    return render(request, 'blog.html', {'posts': posts})
+
+# Display all posts created by admin
+def articles(request):
+    posts = PostRaw.objects.filter(post_type=1).order_by('-created_at')
+    return render(request, 'articles.html', {'posts': posts})
+

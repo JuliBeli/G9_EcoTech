@@ -6,9 +6,9 @@ from django.contrib import messages
 
 class PostAdmin(admin.ModelAdmin):
     list_display = (
-    'username', 'post_time', 'thumbs_up_int',
-    'display_short_content', 'data_type')
-    list_filter = ('data_type',)
+    'author', 'title','created_at', 'likes_int',
+    'display_short_content', 'post_type')
+    list_filter = ('post_type',)
     def display_short_content(self, obj):
         return obj.short_content()
     display_short_content.short_description = 'Short Content'
