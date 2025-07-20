@@ -80,9 +80,6 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
-#reset password page
-def reset(request):
-    return render(request, 'reset.html')
 
 # main page after login
 @never_cache
@@ -96,7 +93,7 @@ def main(request):
     # return render(request, 'index.html')
 
 # create new post page
-# @login_required
+@login_required
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -110,11 +107,13 @@ def create_post(request):
     return render(request, 'create_post.html', {'form': form})
 
 # Display all posts created by user
+@login_required
 def blog(request):
     posts = PostRaw.objects.filter(post_type=2).order_by('-created_at')
     return render(request, 'blog.html', {'posts': posts})
 
 # Display all posts created by admin
+@login_required
 def articles(request):
     posts = PostRaw.objects.filter(post_type=1).order_by('-created_at')
     return render(request, 'articles.html', {'posts': posts})
