@@ -146,6 +146,8 @@ body {
 }
 
 .article-card-block {
+    text-decoration: none;
+    color: inherit;
     display: flex; /* Align content and image side by side */
     flex-direction: row; /* Horizontal alignment */
     align-items: center; /* Vertically align items */
@@ -201,4 +203,16 @@ body {
 .a-read-more{
     text-decoration: none;
     color: black;
+}
+
+.post-title{
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.post-title:hover {
+    text-decoration: underline;
+    color: #38e07a;
 }

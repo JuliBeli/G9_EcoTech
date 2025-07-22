@@ -23,9 +23,21 @@
                 <!-- Navigation Buttons on the right -->
                 <div class="nav-buttons">
                     {% block nav_buttons %}
-                        <!-- Default buttons -->
-                        <a href="/register" class="button button-primary">Sign up</a>
-                    {% endblock nav_buttons %}
+    {% if user.is_authenticated %}
+{#    diplay Articles and Blog options#}
+     <div class="company-name" >
+        <a href="/articles" style="text-align: left; font-size: 20px;padding-right: 20px; font-weight: normal">Articles</a>
+        <a href="/blog" style="text-align: left; font-size: 20px;padding-right: 20px; font-weight: normal">Blog</a>
+    </div>
+{#        display create post button and log out button#}
+    <a href="/create_post" class="button button-primary" >Create</a>
+    <a href="/logout" class="button button-primary">Log out</a>
+    {% else %}
+{#        for not authenticated user, display sign up button and log in button#}
+    <a href="/register" class="button button-primary">Sign up</a>
+    <a href="/login" class="button button-primary">Login</a>
+    {% endif %}
+{% endblock nav_buttons %}
                 </div>
             </div>
         </nav>

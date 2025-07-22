@@ -16,7 +16,7 @@ class PostRaw(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     likes_int = models.IntegerField(default=0)
     content = models.TextField()
-    title = models.TextField(max_length=50, blank=False, null=False)
+    title = models.TextField(max_length=60, blank=False, null=False)
     # images will be stored under djangoProject/media/post_images
     image = models.ImageField(upload_to='post_images/', blank=True, null=False)
 
@@ -34,9 +34,9 @@ class PostRaw(models.Model):
 
     def short_content(self):
         # print(f'Original content length: {len(str(self.content))}')
-        short_content = str(self.content)[0:100] if len(str(self.content)) > 100 else str(self.content)
+        short_content = str(self.content)[0:140] if len(str(self.content)) > 140 else str(self.content)
         # print(f'Shortened content length: {len(short_content)}')
-        return short_content + '...' if len(str(self.content)) > 100 else short_content
+        return short_content + '...' if len(str(self.content)) > 140 else short_content
 
     def __str__(self):
         return self.title
