@@ -2,43 +2,47 @@
 {% load static %}
 
 {% block content %}
-    <!-- Latest Articles Section -->
     <section>
-    <h2 style="text-align: center">Latest Articles</h2>
-    <div class="article-inline-container">
-        {% for article in latest_articles %}
-        <div class="article-card-inline">
-            {% if article.image %}
-                <img src="{{ article.image.url }}" alt="{{ article.title }}">
-            {% endif %}
-            <div>
-                <h3>{{ article.title }}</h3>
-                <p>{{ article.content|slice:":100" }}...</p>
-                <a class="a-read-more" href="{% url 'post_detail' article.id %}">Read More</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
+        <h2 style="text-align: center; margin-bottom: 1.5rem;">Latest Articles</h2>
 
-    <!-- Featured Articles Section -->
-     <section>
-    <h2 style="margin-top: 50px">Featured Articles</h2>
-    <div class="article-block-container">
-        {% for article in featured_articles %}
-        <div class="article-card-block">
-            <div>
-                <h3>{{ article.title }}</h3>
-                <p>{{ article.content|slice:":100" }}...</p>
-                <a class="a-read-more" href="{% url 'post_detail' article.id %}">Read More</a>
-            </div>
-            <div>
-                {% if article.image %}
-                <img src="{{ article.image.url }}" alt="{{ article.title }}">
-            {% endif %}
-            </div>
+        <div class="article-grid-container">
+            {% for article in latest_articles %}
+                <a href="{% url 'post_detail' article.id %}" class="article-card-link">
+                    <div class="article-card-vertical">
+                        <div class="card-image">
+                            {% if article.image %}
+                                <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-content">
+                            <h3 class="post-title-small">{{ article.title }}</h3>
+                            <p class="post-meta">{{ article.created_at|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-         </section>
+    </section>
+
+    <section>
+        <h2 style="margin-top: 50px; text-align: center; margin-bottom: 1.5rem;">Featured Articles</h2>
+
+        <div class="article-block-container">
+            {% for article in featured_articles %}
+                <div class="article-card-block">
+                    <div class="card-content">
+                        <a href="{% url 'post_detail' article.id %}" class="post-title">{{ article.title }}</a>
+                        <p class="post-meta">on {{ article.created_at|date:"F d, Y" }}</p>
+                        <p>{{ article.content|slice:":200" }}...</p>
+                        <a href="{% url 'post_detail' article.id %}" class="a-read-more" style="margin-top: 1rem;">Read More</a>
+                    </div>
+                    <div class="card-image">
+                        {% if article.image %}
+                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock content %}

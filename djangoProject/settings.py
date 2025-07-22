@@ -202,8 +202,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 EMAIL_SSL_CERTFILE = None
 EMAIL_SSL_KEYFILE = None
 
-os.environ['SSL_CERT_FILE'] = '/Users/leo/Desktop/IADS/blog/G9_EcoTech/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
-os.environ['REQUESTS_CA_BUNDLE'] = '/Users/leo/Desktop/IADS/blog/G9_EcoTech/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
+#os.environ['SSL_CERT_FILE'] = '/Users/leo/Desktop/IADS/blog/G9_EcoTech/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
+#os.environ['REQUESTS_CA_BUNDLE'] = '/Users/leo/Desktop/IADS/blog/G9_EcoTech/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
 
 EMAIL_BACKEND = 'post_app.backends.CustomEmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

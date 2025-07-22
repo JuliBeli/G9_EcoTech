@@ -1,35 +1,37 @@
-{#thid is the Blog page, for logged in users only#}
-{#it will display user uploaded posts#}
+{# This is the Blog page, for logged in users only #}
+{# It will display user uploaded posts #}
 {% extends "base_generic.html" %}
 <title>{% block title %}EcoTech - Blog{% endblock %}</title>
 
 {% block content %}
-  <div style="display: block;">
+  <div>
     <h2 style="text-align: center;">Blog</h2>
   </div>
-  <div class="article-block-container">
-{% for post in posts %}
-    <div class="article-card-block">
-        <div>
-            <a href="{% url 'post_detail' post.id %}" class="post-title">{{ post.title }}</a>
-{#            <h3>{{ post.title }}</h3>#}
-            <p>on {{ post.created_at }} by {{ post.author }}</p>
-            {% if post.content|length > 140 %}
-                <p>{{ post.content|slice:":140" }}...</p>
-                <a href="{% url 'post_detail' post.id %}" class="a-read-more">Read More</a>
-            {% else %}
-                <p>{{ post.content }}</p>
-            {% endif %}
-        </div>
-        <div>
-            {% if post.image %}
-                <img src="{{ post.image.url }}" width="300">
-            {% endif %}
-        </div>
-    </div>
-{% endfor %}
-  </div>
-    <script>
 
-</script>
+<div class="article-block-container">
+    {% for post in posts %}
+        <div class="article-card-block">
+
+            <div class="card-content">
+                <a href="{% url 'post_detail' post.id %}" class="post-title">{{ post.title }}</a>
+                <p class="post-meta">on {{ post.created_at|date:"F d, Y" }} by {{ post.author }}</p>
+
+                {% if post.content|length > 200 %}
+                    <p>{{ post.content|slice:":200" }}...</p>
+                {% else %}
+                    <p>{{ post.content }}</p>
+                {% endif %}
+
+                <a href="{% url 'post_detail' post.id %}" class="a-read-more" style="margin-top: 1rem;">Read More</a>
+            </div>
+
+            <div class="card-image">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% endif %}
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

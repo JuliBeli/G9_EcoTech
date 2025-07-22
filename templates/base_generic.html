@@ -1,60 +1,85 @@
+{% comment %}
+    Load the static tag library to handle static files like CSS and JavaScript.
+{% endcomment %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% comment %}
+        The title block can be overridden by child templates
+        to set a custom page title.
+    {% endcomment %}
     <title>{% block title %}EcoTech{% endblock %}</title>
-    <!-- Link to your custom CSS file -->
+
+    {% comment %}
+        Link to the main stylesheet for the entire site.
+    {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    {% comment %}
+        Links for the Google Font "Merriweather".
+    {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Top Navigation Bar -->
     <header class="top-bar">
         <nav class="container">
-            <!-- This div is now a flex container -->
+            {% comment %}
+                This div uses flexbox to position the company name on the left
+                and the navigation/buttons on the right.
+            {% endcomment %}
             <div class="nav-container">
-                <!-- Company Name on the left -->
-                <div class="company-name" >
-                    <a href="/" style="text-align: left">EcoTech</a>
+
+                <div class="company-name">
+                    <a href="/">EcoTech</a>
                 </div>
 
-                <!-- Navigation Buttons on the right -->
-                <div class="nav-buttons">
+                <div class="nav-right-section">
+                    {% comment %}
+                        This block allows child templates to replace the navigation
+                        buttons if needed, but contains the default logic here.
+                    {% endcomment %}
                     {% block nav_buttons %}
-    {% if user.is_authenticated %}
-{#    diplay Articles and Blog options#}
-     <div class="company-name" >
-        <a href="/articles" style="text-align: left; font-size: 20px;padding-right: 20px; font-weight: normal">Articles</a>
-        <a href="/blog" style="text-align: left; font-size: 20px;padding-right: 20px; font-weight: normal">Blog</a>
-    </div>
-{#        display create post button and log out button#}
-    <a href="/create_post" class="button button-primary" >Create</a>
-    <a href="/logout" class="button button-primary">Log out</a>
-    {% else %}
-{#        for not authenticated user, display sign up button and log in button#}
-    <a href="/register" class="button button-primary">Sign up</a>
-    <a href="/login" class="button button-primary">Login</a>
-    {% endif %}
-{% endblock nav_buttons %}
+                        {% if user.is_authenticated %}
+                            <div class="nav-links">
+                                <a href="/articles">Articles</a>
+                                <a href="/blog">Blog</a>
+                            </div>
+
+                            <div class="nav-buttons">
+                                <a href="/create_post" class="button button-primary">Create</a>
+                                <a href="/logout" class="button">Log out</a>
+                            </div>
+                        {% else %}
+                            <div class="nav-buttons">
+                                <a href="/register" class="button button-primary">Sign up</a>
+                                <a href="/login" class="button">Login</a>
+                            </div>
+                        {% endif %}
+                    {% endblock nav_buttons %}
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Thin line separator -->
     <hr class="separator">
 
-    <!-- Main Content Block -->
     <main class="container content-body">
+        {% comment %}
+            This is the primary content block. Child templates like 'blog.html'
+            or 'articles.html' will insert their unique content here.
+        {% endcomment %}
         {% block content %}
-            <!-- Content from child templates will be inserted here -->
             <h1>Welcome to our Website!</h1>
         {% endblock content %}
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
