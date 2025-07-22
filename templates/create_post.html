@@ -1,5 +1,6 @@
 {#this is the create post page, for logged in users only#}
 {% extends "base_generic.html" %}
+<title>{% block title %}EcoTech - Create New Post{% endblock %}</title>
 {#overwrite the sign up button to Log in#}
 
 {% block nav_buttons %}
@@ -24,21 +25,16 @@
           {{ form.non_field_errors }}
         </div>
       {% endif %}
-      {% for field in form %}
-       <div style="margin-bottom: 20px; width: 400px;">
-          <div style="display: block; margin-bottom: 10px;"> 
-            {{ field.label_tag }}
-          </div>
-          <div style="display: block; text-align: center;">
-            {{ field }}
-          </div>
-        {% if field.errors %}
-      <div class="alert alert-danger" style="width: 400px; z-index: 1;position: relative">
-        {{ field.errors }}
-      </div>
-    {% endif %}
-        </div>
-      {% endfor %}
+{% for field in form %}
+  <div style="margin-bottom: 20px; width: 600px;">
+    <div style="display: block;margin-bottom: 10px;">
+      {{ field.label_tag }}
+    </div>
+    <div style="display: block;text-align: center;">
+      {{ field }}
+    </div>
+  </div>
+{% endfor %}
       <div style="display: block; width: 400px;justify-content: center;">
         <button type="submit" class="button button-primary" style="text-align:center; width: 400px">Upload</button>
       </div>

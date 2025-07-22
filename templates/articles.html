@@ -1,36 +1,32 @@
 {#this is the Articles page, for logged in users only#}
 {#it will display admin uploaded posts#}
 {% extends "base_generic.html" %}
-{#overwrite the sign up button to Log in#}
+<title>{% block title %}EcoTech - Articles{% endblock %}</title>
 
-{% block nav_buttons %}
-    <!-- Overwrite the default buttons -->
-     <div class="company-name" >
-        <a href="/articles" style="text-align: left; font-size: 20px;padding-right: 20px; font-weight: normal">Articles</a>
-        <a href="/blog" style="text-align: left; font-size: 20px;padding-right: 20px; font-weight: normal">Blog</a>
-    </div>
-    <a href="/create_post" class="button button-primary" >Upload</a>
-    <a href="/logout" class="button button-primary">Log out</a>
-{% endblock nav_buttons %}
 
 {% block content %}
   <div style="display: block;">
     <h2 style="text-align: center;">Articles</h2>
   </div>
-  <div style="display: block;">
-   {% for post in posts %}
-    <div>
-        <h3>{{ post.title }}</h3>
-        <p>on {{ post.created_at }}</p>
-        <p>{{ post.content }}</p>
-        {% if post.image %}
-            <img src="{{ post.image.url }}" width="300">
-        {% endif %}
+  <div class="article-block-container">
+{% for post in posts %}
+    <div class="article-card-block">
+        <div>
+            <a href="{% url 'post_detail' post.id %}" class="post-title">{{ post.title }}</a>
+            <p>on {{ post.created_at }}</p>
+            {% if post.content|length > 140 %}
+                <p>{{ post.content|slice:":140" }}...</p>
+                <a href="{% url 'post_detail' post.id %}" class="a-read-more">Read More</a>
+            {% else %}
+                <p>{{ post.content }}</p>
+            {% endif %}
+        </div>
+        <div>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" width="300">
+            {% endif %}
+        </div>
     </div>
-    <hr>
 {% endfor %}
   </div>
-    <script>
-
-</script>
 {% endblock %}

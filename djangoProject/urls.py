@@ -19,13 +19,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from post_app import views
+from post_app import urls
 from django.contrib.staticfiles.views import serve
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    # path('favicon.ico', serve, {'path': 'images/favicon.ico'}),
-    path('main/', views.main, name='main'),
+    path('post_app/', include('post_app.urls')),
     path('login/', views.login_view, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('', views.index, name='index'),

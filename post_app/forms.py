@@ -33,8 +33,21 @@ class CustomAuthenticationForm(AuthenticationForm):
         for field_i in self.fields:
             self.fields[field_i].widget.attrs.update({'class': 'large-input'})
 
-# create new post form
 class PostForm(forms.ModelForm):
     class Meta:
         model = PostRaw
         fields = ['title', 'content', 'image']
+
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({
+            'class': 'post-title-input',
+            'placeholder': 'Enter the title'
+        })
+        self.fields['content'].widget.attrs.update({
+            'class': 'post-content-input',
+            'placeholder': 'Share your tips to make life greener'
+        })
+        self.fields['image'].widget.attrs.update({
+            'class': 'post-image-input',
+        })
