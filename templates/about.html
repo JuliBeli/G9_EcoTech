@@ -1,11 +1,36 @@
-{#this is the about us page#}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_generic.html" %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}About Us - EcoTech{% endblock %}
+
+{% block content %}
+  <h1>About EcoTech</h1>
+  <p class="lead-paragraph">
+    EcoTech is dedicated to promoting sustainable technologies and driving a greener future.
+    Our mission is to make renewable energy, eco-friendly transportation, green building, and waste recycling solutions accessible to everyone.
+  </p>
+
+  <h2>Our Mission</h2>
+  <ul class="styled-list">
+    <li>Promote renewable energy adoption</li>
+    <li>Support eco-friendly transportation</li>
+    <li>Encourage sustainable building designs</li>
+    <li>Advocate for efficient waste recycling</li>
+  </ul>
+
+  <h2>Our Values</h2>
+  <ul class="styled-list">
+    <li><strong>Innovation</strong>: Embracing green technologies</li>
+    <li><strong>Responsibility</strong>: Caring for our planet</li>
+    <li><strong>Collaboration</strong>: Working together for a better future</li>
+  </ul>
+
+  <h2>Our Team</h2>
+  <p>
+    We are a collaborative group of students passionate about sustainability and green technologies.
+    Combining expertise from different disciplines, we work together to explore innovative solutions for a more eco-friendly future.
+  </p>
+  <p>
+    From software development to environmental research, each member contributes unique perspectives and skills to drive our project forward.
+  </p>
+{% endblock %}
