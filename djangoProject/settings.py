@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import ssl
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -195,3 +196,19 @@ LOGIN_URL = 'login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Email Settings
+
+EMAIL_SSL_CERTFILE = None
+EMAIL_SSL_KEYFILE = None
+
+os.environ['SSL_CERT_FILE'] = '/Users/leo/Desktop/IADS/blog/G9_EcoTech/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
+os.environ['REQUESTS_CA_BUNDLE'] = '/Users/leo/Desktop/IADS/blog/G9_EcoTech/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
+
+EMAIL_BACKEND = 'post_app.backends.CustomEmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ecotechgroup9@gmail.com'
+EMAIL_HOST_PASSWORD = 'ifolcnkqgqkrfahi'
+DEFAULT_FROM_EMAIL = 'ecotechgroup9@gmail.com'

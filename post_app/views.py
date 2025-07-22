@@ -12,6 +12,13 @@ from rest_framework.renderers import JSONRenderer
 from post_app.forms import CustomAuthenticationForm, CustomUserCreationForm, PostForm
 from post_app.models import PostRaw
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.hashers import make_password
+from .models import PasswordResetCode
+from .services.email_service import EmailService
 
 # class JSONResponse(HttpResponse):
 #     """
@@ -53,6 +60,7 @@ def login_view(request):
     return render(request, 'registration/login.html', {'form': form})
 
 
+
 @never_cache
 def register_request(request):
     if request.method == "POST":
@@ -72,9 +80,6 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
-#reset password page
-def reset(request):
-    return render(request, 'reset.html')
 
 # main page after login
 @never_cache
@@ -88,7 +93,7 @@ def main(request):
     # return render(request, 'index.html')
 
 # create new post page
-# @login_required
+@login_required
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -102,12 +107,76 @@ def create_post(request):
     return render(request, 'create_post.html', {'form': form})
 
 # Display all posts created by user
+@login_required
 def blog(request):
     posts = PostRaw.objects.filter(post_type=2).order_by('-created_at')
     return render(request, 'blog.html', {'posts': posts})
 
 # Display all posts created by admin
+@login_required
 def articles(request):
     posts = PostRaw.objects.filter(post_type=1).order_by('-created_at')
     return render(request, 'articles.html', {'posts': posts})
 
+#send verification code
+def send_reset_code(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        try:
+            user = User.objects.get(email=email)
+
+            # generate verification code
+            code = PasswordResetCode.generate_code()
+
+            # save verification code
+            reset_code = PasswordResetCode.objects.create(
+                user=user,
+                code=code
+            )
+
+            # send email
+            if EmailService.send_password_reset_code(user, code):
+                messages.success(request, 'The verification code has been sent to your email')
+                return redirect('verify_reset_code')
+            else:
+                messages.error(request, 'Failed to send verification code; please try again later')
+
+        except User.DoesNotExist:
+            messages.error(request, 'This email is not registered')
+
+    return render(request, 'send_reset_code.html')
+
+#verify reset code
+def verify_reset_code(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        code = request.POST.get('code')
+        new_password = request.POST.get('new_password')
+
+        try:
+            user = User.objects.get(email=email)
+            reset_code = PasswordResetCode.objects.filter(
+                user=user,
+                code=code,
+                is_used=False
+            ).first()
+
+            if reset_code and not reset_code.is_expired():
+                # update password
+                user.password = make_password(new_password)
+                user.save()
+
+                # Mark verification code as used
+                reset_code.is_used = True
+                reset_code.save()
+
+                messages.success(request, 'Password reset success')
+                return redirect('login')
+            else:
+                messages.error(request, 'The verification code is invalid or expired')
+
+        except User.DoesNotExist:
+            messages.error(request, 'User does not exist')
+
+    return render(request, 'verify_reset_code.html')

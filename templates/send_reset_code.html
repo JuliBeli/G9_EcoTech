@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div style="display: block;">
+    <h2 style="text-align: center;">Reset Password</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">
+      Enter your email address and we'll send you a verification code
+    </p>
+  </div>
+  
+  <div style="display: block;">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="margin-bottom: 20px; padding: 10px; border-radius: 4px; text-align: center;">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    
+    <form method="post" style="display: flex; flex-direction: column; align-items: center;">
+      {% csrf_token %}
+      
+      <div style="margin-bottom: 20px; width: 400px;">
+        <div style="display: block; margin-bottom: 10px;">
+          <label for="email">Email Address:</label>
+        </div>
+        <div style="display: block; text-align: center;">
+          <input type="email" id="email" name="email" required
+                 class="large-input">
+        </div>
+      </div>
+      
+      <button type="submit" class="button button-primary" style="text-align:center;width: 400px ">
+        Send Verification Code
+      </button>
+    </form>
+    
+    <div class="footer-links " style="text-align: center; margin-top: 10px;">
+      <a href="/login" style="color: grey; ">Back to Login</a>
+    </div>
+  </div>
+{% endblock %}

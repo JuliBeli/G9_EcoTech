@@ -33,8 +33,10 @@ urlpatterns = [
     path("register/", views.register_request, name="register"),
     path("about/", views.about, name="about"),
     path("contact/", views.contact, name="contact"),
-    path("reset/", views.reset, name="reset"),
     path("create_post/", views.create_post, name="create_post"),
     path("blog/", views.blog, name="blog"),
     path("articles/", views.articles, name="articles"),
+    path('send-reset-code/', views.send_reset_code, name='send_reset_code'),
+    path('verify-reset-code/', views.verify_reset_code, name='verify_reset_code'),
+
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

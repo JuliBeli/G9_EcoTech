@@ -1,0 +1,74 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div style="display: block;">
+    <h2 style="text-align: center;">Verify Reset Code</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">
+      Enter the verification code sent to your email and your new password
+    </p>
+  </div>
+  
+  <div style="display: block;">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="margin-bottom: 20px; padding: 10px; border-radius: 4px; text-align: center;">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    
+    <form method="post" style="display: flex; flex-direction: column; align-items: center;">
+      {% csrf_token %}
+      
+      <div style="margin-bottom: 20px; width: 400px;">
+        <div style="display: block; margin-bottom: 10px;">
+          <label for="email">Email Address:</label>
+        </div>
+        <div style="display: block; text-align: center;">
+          <input type="email" id="email" name="email" required 
+                 class = large-input>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px; width: 400px;">
+        <div style="display: block; margin-bottom: 10px;">
+          <label for="code">Verification Code:</label>
+        </div>
+        <div style="display: block; text-align: center;">
+          <input type="text" id="code" name="code" required maxlength="6" 
+                 class = large-input>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px; width: 400px;">
+        <div style="display: block; margin-bottom: 10px;">
+          <label for="new_password">New Password:</label>
+        </div>
+        <div style="display: block; text-align: center;">
+          <input type="password" id="new_password" name="new_password" required 
+                 class = large-input>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px; width: 400px;">
+        <div style="display: block; margin-bottom: 10px;">
+          <label for="confirm_password">Confirm New Password:</label>
+        </div>
+        <div style="display: block; text-align: center;">
+          <input type="password" id="confirm_password" name="confirm_password" required 
+                 class = large-input>
+        </div>
+      </div>
+      
+      <button type="submit" class="button button-primary" style="text-align:center;width: 400px ">
+        Reset Password
+      </button>
+    </form>
+    
+    <div class="footer-links" style="margin-top: 10px;">
+      <a href="/send-reset-code" style="color: grey;">Resend Code</a>
+        <a style="color: grey;">|</a>
+      <a href="/login" style="color: grey;">Back to Login</a>
+    </div>
+  </div>
+{% endblock %}
