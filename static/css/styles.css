@@ -347,3 +347,150 @@ h2 {
 .footer-links a:hover {
     text-decoration: underline;
 }
+
+.search-container {
+    position: relative;
+    margin-top: 10px;
+}
+
+#search-input {
+    padding: 8px;
+    width: 250px;
+}
+
+#suggestions-list {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    width: 250px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 10;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+.search-wrapper {
+        position: relative;
+        display: inline-block;
+}
+.search-input {
+    padding: 10px 30px 10px 35px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+}
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #888;
+}
+.suggestions-box {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 250px;
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+/* Search Filters Form */
+.filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background-color: #fff7d6;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.filters-form p {
+    margin: 0;
+    flex: 1 1 200px;
+}
+
+.filters-form input,
+.filters-form select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    background-color: white;
+}
+
+/* Filter Submit Button */
+.filters-form .button-primary {
+    padding: 10px 20px;
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+}
+.search-bar-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.filter-toggle {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+    align-self: start;
+    border-radius: 4px;
+}
+
+.filters-dropdown {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.filter-field {
+    margin-bottom: 10px;
+}
+
+/*form .form-control {*/
+/*  max-width: 300px;*/
+/*}*/
+
+/*.input-group {*/
+/*  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);*/
+/*}*/

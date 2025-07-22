@@ -1,0 +1,70 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+    <h2 style="text-align: center;">Search Results</h2>
+
+{#    <form method="get" class="filters-form">#}
+{#        {{ form.as_p }}#}
+{#        <button type="submit" class="button button-primary">Apply Filters</button>#}
+{#    </form>#}
+    <form method="get" action="{% url 'search_results' %}" class="d-flex justify-content-center mt-5" style="gap: 10px;">
+      <div class="input-group" style="max-width: 600px; border-radius: 12px;">
+        <!-- Search Input -->
+        <input type="text" name="q" class="form-control" placeholder="Search..." aria-label="Search" style="border-radius: 12px;"/>
+
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 12px;">
+          <i class="bi bi-funnel"></i>
+        </button>
+
+{#        <ul class="dropdown-menu p-3" style="min-width: 250px;">#}
+{#          <form method="get">#}
+{#            {{ form.as_p }}#}
+{#            <button type="submit" class="btn btn-primary btn-sm mt-2">Apply Filters</button>#}
+{#          </form>#}
+{#        </ul>#}
+        <ul class="dropdown-menu p-3" style="min-width: 250px;">
+            {% for field in form %}
+              {% if field.name != "q" %}
+                <div class="mb-2">
+                  {{ field.label_tag }} {{ field }}
+                </div>
+              {% endif %}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-sm mt-2">Apply Filters</button>
+        </ul>
+        <!-- Submit Button -->
+        <button class="btn btn-primary" type="submit" style="border-radius: 12px;">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
+
+    <div class="article-grid-container" style="margin-top: 2rem;">
+        {% for article in posts %}
+            <a href="{% url 'post_detail' article.id %}" class="article-card-link">
+                <div class="article-card-vertical">
+                    <div class="card-image">
+                        {% if article.image %}
+                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <h3 class="post-title-small">{{ article.title }}</h3>
+                        <p class="post-meta">{{ article.created_at|date:"F d, Y" }} | Likes: {{ article.likes_int }}</p>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <p>No results found.</p>
+        {% endfor %}
+    </div>
+    <script>
+        const toggleBtn = document.getElementById("toggle-filters");
+        const filtersDropdown = document.getElementById("filters-dropdown");
+
+        toggleBtn.addEventListener("click", function () {
+            filtersDropdown.classList.toggle("hidden");
+        });
+    </script>
+{% endblock %}

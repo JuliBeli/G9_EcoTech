@@ -51,3 +51,62 @@ class PostForm(forms.ModelForm):
         self.fields['image'].widget.attrs.update({
             'class': 'post-image-input',
         })
+
+class SearchFilterForm(forms.Form):
+    q = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'search-input',
+            'placeholder': 'Search articles/blogs...',
+            'id': 'search',
+        }
+    ))
+    post_type = forms.ChoiceField(
+        required=False,
+        choices=[('', 'All Types')] + PostRaw.POST_TYPE_CHOICES,
+        widget=forms.Select()
+    )
+
+    author = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Author username',
+        })
+    )
+
+    date_range = forms.ChoiceField(
+        required=False,
+        choices=[
+            ('', 'All Dates'),
+            ('1d', 'Last 24 hours'),
+            ('7d', 'Last 7 days'),
+            ('1m', 'Last month'),
+            ('1y', 'Last year')
+        ],
+        widget=forms.Select()
+    )
+
+    # start_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    # end_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+
+    sort = forms.ChoiceField(
+        required=False,
+        choices=[
+            ('recent', "Newest First"),
+            ('oldest', "Oldest First"),
+            ('likes_desc', "Most Liked"),
+            ('likes_asc', "Least Liked"),
+        ],
+        widget=forms.Select()
+    )
+
+    length = forms.ChoiceField(
+        required=False,
+        choices=[
+            ('', 'Any Length'),
+            ('short', 'Short'),
+            ('medium', 'Medium'),
+            ('long', 'Long')
+        ],
+        widget=forms.Select()
+    )

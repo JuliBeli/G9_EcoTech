@@ -38,5 +38,7 @@ urlpatterns = [
     path("articles/", views.articles, name="articles"),
     path('send-reset-code/', views.send_reset_code, name='send_reset_code'),
     path('verify-reset-code/', views.verify_reset_code, name='verify_reset_code'),
-
+    path('search-suggestions/', views.search_suggestions, name='search_suggestions'),
+    path('<int:post_id>/', views.post_detail, name='post_detail'),
+    path('search/', views.search_results, name = "search_results"),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
