@@ -1,15 +1,21 @@
 # Create your views here.
 
 from datetime import datetime
+from idlelib.query import Query
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.db.models import QuerySet
+from django.db.models.functions import Lower
+from django.http import HttpResponse, JsonResponse
+from django.utils import timezone
 from django.shortcuts import render, redirect
+from datetime import timedelta
 from django.views.decorators.cache import never_cache
 from rest_framework.renderers import JSONRenderer
 
-from post_app.forms import CustomAuthenticationForm, CustomUserCreationForm, PostForm
+from post_app.forms import CustomAuthenticationForm, CustomUserCreationForm, PostForm, SearchFilterForm
 from post_app.models import PostRaw
 
 from django.shortcuts import render, redirect
@@ -17,9 +23,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
-from .models import PasswordResetCode
+from .models import PasswordResetCode, PostRaw
 from .services.email_service import EmailService
 from django.shortcuts import get_object_or_404
+from . import global_trie
+
 
 @login_required()
 def post_detail(request, post_id):
@@ -172,3 +180,94 @@ def verify_reset_code(request):
             messages.error(request, 'User does not exist')
 
     return render(request, 'verify_reset_code.html')
+
+# View to recommand the articles
+def search_suggestions(request):
+    query = request.GET.get("q", "").strip().lower()
+    if not query:
+        return JsonResponse({"suggestions": []})
+    matches = global_trie.trie.starts_with(query)
+    print("Matches: ", matches)
+    posts = PostRaw.objects.annotate(lower_title = Lower("title")).filter(lower_title__in = matches)
+    print("Posts: ", posts)
+    suggestions = [
+        {"id": post.id, "title": post.title}
+        for post in posts
+    ]
+
+    return JsonResponse({"suggestions": suggestions})
+
+# View to search the Article with filters
+def search_results(request):
+    if request.method == "GET":
+        form = SearchFilterForm(request.GET or None)
+        if form.is_valid():
+            q = form.cleaned_data["q"] # since the query is a going to be given by the user we are not using .get
+            post_type = form.cleaned_data.get("post_type")
+            author = form.cleaned_data.get("author")
+            date_range = form.cleaned_data.get('date_range')
+            # start_date = form.cleaned_data.get('start_date')
+            # end_date = form.cleaned_data.get('end_date')
+            sort_choice = form.cleaned_data.get('sort')
+            length = form.cleaned_data.get('length')
+            posts = QuerySet()
+            if q:
+                title_qs = PostRaw.objects.filter(title__icontains=q)
+                content_qs = PostRaw.objects.filter(content__icontains=q)
+                print("Title_qs: ", title_qs.values())
+                print("content_qs: ", content_qs.values())
+                # posts = title_qs.union(content_qs)
+
+                if post_type:
+                    title_qs = title_qs.filter(post_type = post_type)
+                    content_qs = content_qs.filter(post_type = post_type)
+
+                if author:
+                    title_qs = title_qs.filter(author__username__icontains = author)
+                    content_qs = content_qs.filter(author__username__icontains = author)
+
+                if date_range:
+                    now = timezone.now()
+                    date_threshold = None
+                    if date_range == "1d":
+                        date_threshold = now - timedelta(days = 1)
+                    elif date_range == "7d":
+                        date_threshold = now - timedelta(days = 7)
+                    elif date_range == "1m":
+                        date_threshold = now - timedelta(days = 30)
+                    elif date_range == "1y":
+                        date_threshold = now - timedelta(days = 365)
+
+                    if date_threshold:
+                        title_qs = title_qs.filter(created_at__gte = date_threshold)
+                        content_qs = content_qs.filter(created_at__gte = date_threshold)
+
+                posts = title_qs.union(content_qs)
+                if sort_choice == "recent":
+                    posts = posts.order_by("-created_at")
+                elif sort_choice == "oldest":
+                    posts = posts.order_by("created_at")
+                elif sort_choice == "likes_desc":
+                    posts = posts.order_by("-likes_int")
+                elif sort_choice == "likes_asc":
+                    posts = posts.order_by("likes_int")
+                if length:
+                    def get_length(p):
+                        l = len(p.content)
+                        if l < 500:
+                            return 'short'
+                        elif l < 1500:
+                            return 'medium'
+                        else:
+                            return 'long'
+                    posts = [p for p in posts if get_length(p) == length]
+
+
+
+            return render(request, 'results.html', {"posts": posts, "form":form})
+        else:
+            form = SearchFilterForm()
+            return render(request, "results.html", {"form": form})
+    else:
+        form = SearchFilterForm()
+        return render(request, "results.html", {"form": form})
