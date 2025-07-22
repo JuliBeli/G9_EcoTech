@@ -19,6 +19,12 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from .models import PasswordResetCode
 from .services.email_service import EmailService
+from django.shortcuts import get_object_or_404
+
+@login_required()
+def post_detail(request, post_id):
+    post = get_object_or_404(PostRaw, id=post_id)
+    return render(request, 'post_detail.html', {'post': post})
 
 # class JSONResponse(HttpResponse):
 #     """
@@ -31,12 +37,10 @@ from .services.email_service import EmailService
 
 @never_cache
 def index(request):
-    # context = {
-    #     'version': datetime.now().strftime('%Y%m%d%H%M%S'),  # Use the current date and time as the version number
-    #     'user': request.user
-    # }
-    # return render(request, 'index.html', context)
-    return render(request, 'index.html')
+    latest_articles = PostRaw.objects.filter(post_type=1).order_by('-created_at')[:4]  # Get 4 posts created by admin with the latest created time
+    featured_articles = PostRaw.objects.filter(post_type=1).order_by('-likes_int')[:4]  # Get 4 posts created by admin with the most likes
+    return render(request, 'index.html', {'latest_articles': latest_articles,
+                                                    'featured_articles':featured_articles})
 
 @never_cache
 def login_view(request):
@@ -79,18 +83,6 @@ def about(request):
 #contact us page
 def contact(request):
     return render(request, 'contact.html')
-
-
-# main page after login
-@never_cache
-@login_required
-def main(request):
-    context = {
-        'version': datetime.now().strftime('%Y%m%d%H%M%S'),  # Use the current date and time as the version number
-        'user': request.user
-    }
-    return render(request, 'main.html', context)
-    # return render(request, 'index.html')
 
 # create new post page
 @login_required

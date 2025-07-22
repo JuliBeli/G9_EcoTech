@@ -164,3 +164,41 @@ body {
     object-fit: cover; /* Ensure the image fits within the dimensions */
     border-radius: 10px; /* Optional: Add rounded corners */
 }
+
+.post-title-input {
+    width: 600px;
+    height: 40px;
+    font-size: 15px;
+    padding: 10px;
+    border-color: #cbd5e0;
+    box-shadow: none;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.post-content-input {
+    width: 600px;
+    height: 300px;
+    font-size: 15px;
+    padding: 10px;
+    border-color: #cbd5e0;
+    box-shadow: none;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.post-image-input {
+    /*width: 100px;*/
+    /*height: 50px;*/
+    font-size: 15px;
+    /*padding: 10px;*/
+    /*border-color: #cbd5e0;*/
+    /*box-shadow: none;*/
+    /*box-sizing: border-box;*/
+    /*border-radius: 10px;*/
+}
+
+.a-read-more{
+    text-decoration: none;
+    color: black;
+}

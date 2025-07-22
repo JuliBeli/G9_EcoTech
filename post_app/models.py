@@ -16,7 +16,7 @@ class PostRaw(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     likes_int = models.IntegerField(default=0)
     content = models.TextField()
-    title = models.TextField(max_length=30, default='New Post')
+    title = models.TextField(max_length=50, blank=False, null=False)
     # images will be stored under djangoProject/media/post_images
     image = models.ImageField(upload_to='post_images/', blank=True, null=False)
 

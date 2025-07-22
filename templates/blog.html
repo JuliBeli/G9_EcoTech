@@ -1,6 +1,7 @@
 {#thid is the Blog page, for logged in users only#}
 {#it will display user uploaded posts#}
 {% extends "base_generic.html" %}
+<title>{% block title %}EcoTech - Blog{% endblock %}</title>
 {#overwrite the sign up button to Log in#}
 
 {% block nav_buttons %}
@@ -15,19 +16,27 @@
 
 {% block content %}
   <div style="display: block;">
-    <h2 style="text-align: center;">Blog List</h2>
+    <h2 style="text-align: center;">Blog</h2>
   </div>
-  <div style="display: block;">
-   {% for post in posts %}
-    <div>
-        <h3>{{ post.title }}</h3>
-        <p>By {{ post.author.username }} on {{ post.created_at }}</p>
-        <p>{{ post.content }}</p>
-        {% if post.image %}
-            <img src="{{ post.image.url }}" width="300">
-        {% endif %}
+  <div class="article-block-container">
+{% for post in posts %}
+    <div class="article-card-block">
+        <div>
+            <h3>{{ post.title }}</h3>
+            <p>on {{ post.created_at }}</p>
+            {% if post.content|length > 100 %}
+                <p>{{ post.content|slice:":100" }}...</p>
+                <a href="{% url 'post_detail' post.id %}" class="a-read-more">Read More</a>
+            {% else %}
+                <p>{{ post.content }}</p>
+            {% endif %}
+        </div>
+        <div>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" width="300">
+            {% endif %}
+        </div>
     </div>
-    <hr>
 {% endfor %}
   </div>
     <script>
