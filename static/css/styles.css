@@ -620,7 +620,22 @@ a {
     font-weight: bold;
     background-color: #58af2f; /* Green background */
     color: #ffffff; /* White text */
-    font-size: 1rem; /* Font size */
+    font-size: 1rem; /* Font size */.like-btn {
+  border: 1px solid #ccc;
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.like-btn.liked {
+  background-color: #d4f7d4;
+  color: green;
+  font-weight: bold;
+}
     /*font-weight: bold; !* Bold text *!*/
     padding: 10px 10px; /* Padding */
     border: none; /* Remove border */
@@ -632,6 +647,9 @@ a {
 #start-timer:hover {
     background-color: #2d3748; /* Darker background on hover */
 }
+
+
+
 /*form .form-control {*/
 /*  max-width: 300px;*/
 /*}*/
