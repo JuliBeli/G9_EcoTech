@@ -313,7 +313,7 @@ a {
 .post-hero-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This scales the image to fill the frame, cropping excess. */
+    object-fit: cover;    /* This scales the image to fill the frame, cropping excess. */
     object-position: center; /* This ensures the MIDDLE of the image is shown. */
     display: block;
 }
@@ -617,6 +617,24 @@ a {
 #start-timer:hover {
     background-color: #2d3748; /* Darker background on hover */
 }
+
+.like-btn {
+  border: 1px solid #ccc;
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.like-btn.liked {
+  background-color: #d4f7d4;
+  color: green;
+  font-weight: bold;
+}
+
 /*form .form-control {*/
 /*  max-width: 300px;*/
 /*}*/

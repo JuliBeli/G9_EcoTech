@@ -42,4 +42,5 @@ urlpatterns = [
     path('<int:post_id>/', views.post_detail, name='post_detail'),
     path('search/', views.search_results, name = "search_results"),
     path('focus/', views.focus, name = "focus"),
+    path('like/<int:post_id>/', views.toggle_like, name = "like_post"),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,7 @@
 import logging
 from django.contrib.auth.models import User
 from django.db import models
+from django.db import models
 from django.contrib.auth.models import User
 import random
 import string
@@ -14,6 +15,7 @@ class PostRaw(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     likes_int = models.IntegerField(default=0)
+    liked_by = models.ManyToManyField(User, related_name = 'liked_posts', blank = True)
     content = models.TextField()
     title = models.TextField(max_length=60, blank=False, null=False)
     # images will be stored under djangoProject/media/post_images
