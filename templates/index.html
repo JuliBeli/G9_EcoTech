@@ -19,7 +19,7 @@
                             <h3 class="post-title-small">{{ article.title }}</h3>
 {#                            <p class="post-meta">{{ article.created_at|date:"F d, Y" }}</p>#}
                             <div class="post-meta-likes">
-                                <span>  {{ article.created_at|date:"F d, Y" }}</span>
+                                 <span>  {{ article.created_at|date:"F d, Y" }}</span>
                                 <span class="grey-heart-icon"> {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</span>
                             </div>
                         </div>
@@ -40,10 +40,10 @@
 {#                        <p class="post-meta">on {{ article.created_at|date:"F d, Y" }}</p>#}
 {#                        <p class="heart-icon"> {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</p>#}
                         <div class="post-meta-likes">
-                            <span style="color: #555;">  {{ article.created_at|date:"F d, Y" }}</span>
+                            <span>{{ article.created_at|date:"F d, Y" }}</span>
                             <span class="grey-heart-icon">  {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</span>
                         </div>
-                        <p>{{ article.content|slice:":200" }}...</p>
+                        <p>{{ article.content|slice:":200" }} ...</p>
                         <a href="{% url 'post_detail' article.id %}" class="a-read-more" style="margin-top: 1rem;">Read More</a>
                     </div>
                     <div class="card-image">
@@ -55,4 +55,5 @@
             {% endfor %}
         </div>
     </section>
+    <h2> Total Visits: {{ visit_count }}  Daily Visits: {{ daily_visit_count }}</h2>
 {% endblock content %}

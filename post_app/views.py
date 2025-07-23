@@ -43,12 +43,12 @@ def post_detail(request, post_id):
 #         kwargs['content_type'] = 'application/json'
 #         super(JSONResponse, self).__init__(content, **kwargs)
 
-@never_cache
-def index(request):
-    latest_articles = PostRaw.objects.filter(post_type=1).order_by('-created_at')[:4]  # Get 4 posts created by admin with the latest created time
-    featured_articles = PostRaw.objects.filter(post_type=1).order_by('-likes_int')[:4]  # Get 4 posts created by admin with the most likes
-    return render(request, 'index.html', {'latest_articles': latest_articles,
-                                                    'featured_articles':featured_articles})
+# @never_cache
+# def index(request):
+#     latest_articles = PostRaw.objects.filter(post_type=1).order_by('-created_at')[:4]  # Get 4 posts created by admin with the latest created time
+#     featured_articles = PostRaw.objects.filter(post_type=1).order_by('-likes_int')[:4]  # Get 4 posts created by admin with the most likes
+#     return render(request, 'index.html', {'latest_articles': latest_articles,
+#                                                     'featured_articles':featured_articles})
 
 @never_cache
 def login_view(request):
@@ -292,3 +292,37 @@ def toggle_like(request, post_id):
 
     post.save()
     return JsonResponse({'liked': liked})
+
+# new index page with user visit history
+@never_cache
+def index(request):
+
+    latest_articles = PostRaw.objects.filter(post_type=1).order_by('-created_at')[:4]  # Get 4 posts created by admin with the latest created time
+    featured_articles = PostRaw.objects.filter(post_type=1).order_by('-likes_int')[:4]  # Get 4 posts created by admin with the most likes
+    current_date = datetime.now().date()
+
+    # Track visits using sessions
+    visit_count = request.session.get('visit_count', 0) + 1
+    request.session['visit_count'] = visit_count
+
+    # Track daily visits using cookies
+    last_visit = request.COOKIES.get('last_visit')
+    if last_visit:
+        last_visit_date = datetime.strptime(last_visit, '%Y-%m-%d').date()
+        if last_visit_date < current_date:
+            request.session['daily_visit_count'] = 1
+        else:
+            daily_visit_count = request.session.get('daily_visit_count', 0) + 1
+            request.session['daily_visit_count'] = daily_visit_count
+    else:
+        request.session['daily_visit_count'] = 1
+
+    response = render(request, 'index.html', {
+        'visit_count': visit_count,
+        'daily_visit_count': request.session['daily_visit_count'],
+        'latest_articles': latest_articles,
+        'featured_articles': featured_articles
+    })
+
+    response.set_cookie('last_visit', current_date.strftime('%Y-%m-%d'))
+    return response
