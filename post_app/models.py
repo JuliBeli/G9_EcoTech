@@ -53,3 +53,4 @@ class PasswordResetCode(models.Model):
     @classmethod
     def generate_code(cls):
         return ''.join(random.choices(string.digits, k=6))
+

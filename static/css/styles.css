@@ -19,19 +19,19 @@ hr.separator {
     margin: 10px 0; /* Adjust spacing */
 }
 label {
-    font-family: "Times New Roman", Times, serif;;
+    font-family: "Times New Roman", Times, serif;
 }
 
 select {
-    font-family: "Times New Roman", Times, serif;;
+    font-family: "Times New Roman", Times, serif;
 }
 
 option {
-    font-family: "Times New Roman", Times, serif;;
+    font-family: "Times New Roman", Times, serif;
 }
 
 h1{
-    font-family: "Times New Roman", Times, serif;;
+    font-family: "Times New Roman", Times, serif;
 }
 
 section {
@@ -147,6 +147,7 @@ a {
 }
 
 .button.button-primary {
+    font-family: "Times New Roman", Times, serif;
     font-weight: bold;
     background-color: #58af2f;
     color: #ffffff;
@@ -631,6 +632,29 @@ a {
 
 #start-timer:hover {
     background-color: #2d3748; /* Darker background on hover */
+}
+
+/*new for timer select element*/
+#timer {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #36453B;
+    width: 150px;
+    cursor: pointer;
+}
+
+#timer option {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1rem;
+    color: #36453B;
+}
+
+.timer-container{
+    max-height: 450px;
 }
 /*form .form-control {*/
 /*  max-width: 300px;*/
