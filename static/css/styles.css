@@ -13,6 +13,11 @@ body {
     min-height: 100vh;
 }
 
+hr.separator {
+    border: none;
+    border-top: #ccc; /* Single line with a light gray color */
+    margin: 10px 0; /* Adjust spacing */
+}
 label {
     font-family: "Times New Roman", Times, serif;;
 }
@@ -20,6 +25,11 @@ label {
 select {
     font-family: "Times New Roman", Times, serif;;
 }
+
+option {
+    font-family: "Times New Roman", Times, serif;;
+}
+
 h1{
     font-family: "Times New Roman", Times, serif;;
 }
@@ -39,6 +49,11 @@ h2 {
     margin-bottom: 2rem;
     text-align: center;
 }
+
+p{
+    font-family: "Times New Roman", Times, serif;
+}
+
 a {
     font-family: "Times New Roman", Times, serif;
 }
@@ -192,7 +207,7 @@ a {
 .article-card-vertical {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgb(174, 174, 174);
     overflow: hidden;
     height: 100%;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -200,7 +215,7 @@ a {
 
 .article-card-vertical:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow:0 5px 15px rgb(88, 175, 47);
 }
 
 .article-card-vertical .card-image img {
@@ -232,13 +247,13 @@ a {
     margin-bottom: 1.5rem;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgb(174, 174, 174);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .article-card-block:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow:0 5px 15px rgb(88, 175, 47);
 }
 
 .article-card-block .card-image img {
@@ -588,8 +603,8 @@ a {
 }
 
 #tree-display img {
-    width: 200px;
-    height: auto;
+    max-height: 400px;
+    width: auto;
     margin-top: 20px;
 }
 
