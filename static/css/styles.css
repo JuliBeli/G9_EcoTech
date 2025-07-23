@@ -18,7 +18,6 @@ hr.separator {
     border-top: #ccc; /* Single line with a light gray color */
     margin: 10px 0; /* Adjust spacing */
 }
-
 label {
     font-family: "Times New Roman", Times, serif;;
 }
@@ -208,7 +207,7 @@ a {
 .article-card-vertical {
     background-color: white;
     border-radius: 12px;
-    box-shadow:0 5px 15px rgb(88, 175, 47);
+    box-shadow: 0 5px 15px rgb(174, 174, 174);
     overflow: hidden;
     height: 100%;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -621,20 +620,7 @@ a {
     font-weight: bold;
     background-color: #58af2f; /* Green background */
     color: #ffffff; /* White text */
-    font-size: 1rem; /* Font size */
-    /*font-weight: bold; !* Bold text *!*/
-    padding: 10px 10px; /* Padding */
-    border: none; /* Remove border */
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-}
-
-#start-timer:hover {
-    background-color: #2d3748; /* Darker background on hover */
-}
-
-.like-btn {
+    font-size: 1rem; /* Font size */.like-btn {
   border: 1px solid #ccc;
   background-color: white;
   color: black;
@@ -650,6 +636,19 @@ a {
   color: green;
   font-weight: bold;
 }
+    /*font-weight: bold; !* Bold text *!*/
+    padding: 10px 10px; /* Padding */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+#start-timer:hover {
+    background-color: #2d3748; /* Darker background on hover */
+}
+
+
 
 /*form .form-control {*/
 /*  max-width: 300px;*/
