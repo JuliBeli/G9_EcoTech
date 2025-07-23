@@ -16,7 +16,7 @@
       <h1>{{ post.title }}</h1>
         <div class="post-meta-likes" style="display: flex; justify-content: center; align-items: center; margin-top: 10px; gap: 20px">
           <p class="post-meta" style="margin: 0px;">🗓️ Published on {{ post.created_at|date:"F d, Y" }}</p>
-          <div class="post-likes" style="color: #4CAF50; font-weight: bold; margin: 1px;">👍 {{ post.liked_by.count }} Like{{ post.liked_by.count|pluralize }}
+          <div class="post-likes" style="color: #4CAF50; font-weight: bold; margin: 1px;"> 💚 {{ post.liked_by.count }} Like{{ post.liked_by.count|pluralize }}
           </div>
         </div>
     </header>
