@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed8964e7-2f72-47d1-ab6a-fb15f81974f8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/images/tree-stage-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/tree-stage-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/tree-stage-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/tree-stage-4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/tree-stage-5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/timer_and_trees.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/focus.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_generic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/timer_and_trees.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/timer_and_trees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/focus.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/focus.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +132,7 @@
       <workItem from="1753161157458" duration="4254000" />
       <workItem from="1753199333763" duration="19576000" />
       <workItem from="1753229921727" duration="3130000" />
-      <workItem from="1753236460747" duration="3616000" />
+      <workItem from="1753236460747" duration="4255000" />
     </task>
     <task id="LOCAL-00001" summary="move inline css style in contact us page to style.css">
       <option name="closed" value="true" />
@@ -152,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753230999881</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="trees working partially and css">
+      <option name="closed" value="true" />
+      <created>1753240721100</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1753240721100</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +158,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="move inline css style in contact us page to style.css" />
-    <option name="LAST_COMMIT_MESSAGE" value="move inline css style in contact us page to style.css" />
+    <MESSAGE value="trees working partially and css" />
+    <option name="LAST_COMMIT_MESSAGE" value="trees working partially and css" />
   </component>
 </project>

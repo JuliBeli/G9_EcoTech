@@ -12,9 +12,27 @@ document.addEventListener('DOMContentLoaded', () => {
         '/static/images/tree-stage-5.png'
     ];
 
+    const durationToStage = {
+        20: 0,  // 20 minutes -> stage 1
+        40: 1,  // 40 minutes -> stage 2
+        60: 2,  // 1 hour -> stage 3
+        90: 3,  // 90 minutes -> stage 4
+        120: 4  // 2 hours -> stage 5
+    };
+
+    // Update tree image based on selected time
+    timerSelect.addEventListener('change', () => {
+        const duration = parseInt(timerSelect.value);
+        const stageIndex = durationToStage[duration];
+        treeImage.src = treeStages[stageIndex];
+    });
+
     startButton.addEventListener('click', () => {
         const duration = parseInt(timerSelect.value);
-        let remainingTime = duration;
+        let remainingTime = duration * 60; // Convert minutes to seconds
+
+        // Reset tree image to stage 1
+        treeImage.src = treeStages[0];
 
         const interval = setInterval(() => {
             if (remainingTime <= 0) {
@@ -28,7 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             countdownDisplay.textContent = `Time remaining: ${minutes} minutes ${seconds} seconds`;
 
-            const stageIndex = Math.floor((treeStages.length - 1) * (1 - remainingTime / duration));
+            // Gradually update tree image based on remaining time
+            const elapsedTime = duration * 60 - remainingTime; // Time elapsed in seconds
+            const stageIndex = Math.floor((elapsedTime / (duration * 60)) * (treeStages.length - 1));
             treeImage.src = treeStages[stageIndex];
 
             remainingTime--;
