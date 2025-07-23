@@ -272,6 +272,7 @@ def search_results(request):
         form = SearchFilterForm()
         return render(request, "results.html", {"form": form})
 
+# focus with growing  trees
 @login_required
 def focus(request):
     return render(request, 'focus.html')
