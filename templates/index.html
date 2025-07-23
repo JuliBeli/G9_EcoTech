@@ -18,9 +18,9 @@
                         <div class="card-content">
                             <h3 class="post-title-small">{{ article.title }}</h3>
 {#                            <p class="post-meta">{{ article.created_at|date:"F d, Y" }}</p>#}
-                            <div class="post-meta-likes" style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;">
-                                <span style="color: #555;">  {{ article.created_at|date:"F d, Y" }}</span>
-                                <span style="color: #4CAF50;"> 💚 {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</span>
+                            <div class="post-meta-likes">
+                                <span>  {{ article.created_at|date:"F d, Y" }}</span>
+                                <span class="grey-heart-icon"> {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</span>
                             </div>
                         </div>
                     </div>
@@ -38,10 +38,10 @@
                     <div class="card-content">
                         <a href="{% url 'post_detail' article.id %}" class="post-title">{{ article.title }}</a>
 {#                        <p class="post-meta">on {{ article.created_at|date:"F d, Y" }}</p>#}
-{#                        <p style="color: #4CAF50;"> 💚 {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</p>#}
-                        <div class="post-meta-likes" style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; margin-bottom: 0.5rem;">
+{#                        <p class="heart-icon"> {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</p>#}
+                        <div class="post-meta-likes">
                             <span style="color: #555;">  {{ article.created_at|date:"F d, Y" }}</span>
-                            <span style="color: #4CAF50;"> 💚 {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</span>
+                            <span class="grey-heart-icon">  {{ article.liked_by.count }} Like{{ article.liked_by.count|pluralize }}</span>
                         </div>
                         <p>{{ article.content|slice:":200" }}...</p>
                         <a href="{% url 'post_detail' article.id %}" class="a-read-more" style="margin-top: 1rem;">Read More</a>
