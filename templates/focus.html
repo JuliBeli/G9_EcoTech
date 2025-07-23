@@ -1,0 +1,20 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Focus with Your Tree</h1>
+    <p>Set a timer and your tree will grow as you focus!</p>
+    <div class="timer-container">
+        <label for="timer">Select Duration:</label>
+        <select id="timer">
+            <option value="1200">20 minutes</option>
+            <option value="1800">30 minutes</option>
+            <option value="3600">1 hour</option>
+            <option value="7200">2 hours</option>
+        </select>
+        <button id="start-timer">Start Timer</button>
+        <div id="tree-display">
+            <img id="tree-image" src="/static/images/tree-stage-1.png" alt="Tree Growth Stage">
+        </div>
+        <p id="countdown"></p>
+    </div>
+{% endblock content %}

@@ -41,4 +41,5 @@ urlpatterns = [
     path('search-suggestions/', views.search_suggestions, name='search_suggestions'),
     path('<int:post_id>/', views.post_detail, name='post_detail'),
     path('search/', views.search_results, name = "search_results"),
+    path('focus/', views.focus, name = "focus"),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
