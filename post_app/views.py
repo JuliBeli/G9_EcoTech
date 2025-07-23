@@ -1,12 +1,23 @@
 # Create your views here.
+
+from datetime import datetime
+from idlelib.query import Query
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import QuerySet
 from django.db.models.functions import Lower
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
+from django.shortcuts import render, redirect
+from datetime import timedelta
 from django.views.decorators.cache import never_cache
-from datetime import datetime, timedelta
+from rest_framework.renderers import JSONRenderer
+
 from post_app.forms import CustomAuthenticationForm, CustomUserCreationForm, PostForm, SearchFilterForm
+from post_app.models import PostRaw
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -266,30 +277,18 @@ def search_results(request):
 def focus(request):
     return render(request, 'focus.html')
 
+@login_required
+def toggle_like(request, post_id):
+    post = get_object_or_404(PostRaw, id = post_id)
 
-def track_user_visits(request):
-    current_date = datetime.now().date()
-
-    # Track visits using sessions
-    visit_count = request.session.get('visit_count', 0) + 1
-    request.session['visit_count'] = visit_count
-
-    # Track daily visits using cookies
-    last_visit = request.COOKIES.get('last_visit')
-    if last_visit:
-        last_visit_date = datetime.strptime(last_visit, '%Y-%m-%d').date()
-        if last_visit_date < current_date:
-            request.session['daily_visit_count'] = 1
-        else:
-            daily_visit_count = request.session.get('daily_visit_count', 0) + 1
-            request.session['daily_visit_count'] = daily_visit_count
+    if request.user in post.liked_by.all():
+        post.liked_by.remove(request.user)
+        post.likes_int -= 1
+        liked = False
     else:
-        request.session['daily_visit_count'] = 1
+        post.liked_by.add(request.user)
+        post.likes_int += 1
+        liked = True
 
-    response = render(request, 'stats.html', {
-        'visit_count': visit_count,
-        'daily_visit_count': request.session['daily_visit_count'],
-    })
-
-    response.set_cookie('last_visit', current_date.strftime('%Y-%m-%d'))
-    return response
+    post.save()
+    return JsonResponse({'liked': liked})
