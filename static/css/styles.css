@@ -487,6 +487,49 @@ h2 {
     margin-bottom: 10px;
 }
 
+.team-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .team-section h1 {
+        text-align: center;
+        font-size: 2rem;
+        color: #2d3748;
+        margin-bottom: 20px;
+    }
+    .team-members {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    .team-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        padding: 20px;
+        flex: 1 1 calc(33% - 20px);
+        max-width: 300px;
+        text-align: center;
+    }
+    .team-card img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+    .team-card h2 {
+        font-size: 1.2rem;
+        margin: 10px 0 5px 0;
+        color: #38e07a;
+    }
+    .team-card p {
+        font-size: 0.9rem;
+        color: #4a5568;
+        margin: 5px 0;
+    }
 /*form .form-control {*/
 /*  max-width: 300px;*/
 /*}*/
