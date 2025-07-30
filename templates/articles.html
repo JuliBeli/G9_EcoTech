@@ -35,11 +35,11 @@
               {% csrf_token %}
               {% if user in post.liked_by.all %}
                 <button type="submit" class="like-btn" aria-label="Unlike">
-                   <span class="green-heart-icon">Liked</span>
+{#                   <span class="green-heart-icon">Liked</span>#}
                 </button>
               {% else %}
                 <button type="submit" class="like-btn" aria-label="Like">
-                   <span class="grey-heart-icon">Like</span>
+{#                   <span class="grey-heart-icon">Like</span>#}
                 </button>
               {% endif %}
             </form>

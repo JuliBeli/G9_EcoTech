@@ -159,15 +159,15 @@ a {
     border-color: #1c2820;
 }
 
-.large-input,
-.post-title-input,
-.post-content-input {
-    font-size: 1rem;
-    padding: 10px;
-    border: 1px solid #cbd5e0;
-    border-radius: 10px;
-    box-sizing: border-box;
-}
+/*.large-input,*/
+/*.post-title-input,*/
+/*.post-content-input {*/
+/*    font-size: 1rem;*/
+/*    padding: 10px;*/
+/*    border: 1px solid #cbd5e0;*/
+/*    border-radius: 10px;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 .large-input {
     width: 400px;
@@ -699,6 +699,16 @@ a {
     background-color: inherit;
 }
 
+#id_image {
+    opacity: 0; /* Make the input invisible */
+    -moz-opacity:0 ;
+}
+
+.post-image-input {
+    opacity: 0; /* Make the input invisible */
+    -moz-opacity:0 ;
+}
+
 .recently-viewed-section {
     background-color: #f8f9fa;
     border-radius: 10px;
@@ -748,4 +758,21 @@ a {
 
 .post-meta i {
     font-size: 0.9em;
+}
+
+
+.like-btn {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.like-btn.liked {
+    background-image: url('../images/green_heart.png');
+}
+
+.like-btn.not-liked {
+    background-image: url('../images/grey_heart.png');
 }

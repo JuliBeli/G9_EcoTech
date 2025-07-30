@@ -35,8 +35,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'simpleui',
-    'rest_framework',
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,15 +44,9 @@ INSTALLED_APPS = [
     'post_app.apps.PostAppConfig'
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-}
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,42 +54,42 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 # cookies when CORS
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 #allow all CORS
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 #CORS white list
-CORS_ORIGIN_WHITELIST = (
-    # '*'
-    'http://*.*.*:*',
-    'https://*.*.*:*',
-    'http://localhost:8080',
-    'http://127.0.0.1:8080',
-    #'http://127.0.0.1:5500',
-)
+# CORS_ORIGIN_WHITELIST = (
+#     # '*'
+#     'http://*.*.*:*',
+#     'https://*.*.*:*',
+#     'http://localhost:8080',
+#     'http://127.0.0.1:8080',
+#     #'http://127.0.0.1:5500',
+# )
 
-CORS_ALLOW_METHODS = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-    'VIEW',
-)
+# CORS_ALLOW_METHODS = (
+#     'DELETE',
+#     'GET',
+#     'OPTIONS',
+#     'PATCH',
+#     'POST',
+#     'PUT',
+#     'VIEW',
+# )
 
-CORS_ALLOW_HEADERS = (
-    'XMLHttpRequest',
-    'X_FILENAME',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'Pragma',
-)
+# CORS_ALLOW_HEADERS = (
+#     'XMLHttpRequest',
+#     'X_FILENAME',
+#     'accept-encoding',
+#     'authorization',
+#     'content-type',
+#     'dnt',
+#     'origin',
+#     'user-agent',
+#     'x-csrftoken',
+#     'x-requested-with',
+#     'Pragma',
+# )
 
 ROOT_URLCONF = 'djangoProject.urls'
 
@@ -168,19 +160,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-# LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'UTC'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
-
-LANGUAGES = [
-    ('en', 'English'),  # Restrict available languages to English
-]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -197,8 +183,7 @@ LOGIN_URL = 'login'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Email Settings
-
+# Email Setting
 EMAIL_SSL_CERTFILE = None
 EMAIL_SSL_KEYFILE = None
 

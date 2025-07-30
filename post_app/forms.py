@@ -49,7 +49,7 @@ class PostForm(forms.ModelForm):
             'placeholder': 'Share your tips to make life greener'
         })
         self.fields['image'].widget.attrs.update({
-            'class': 'post-image-input',
+            'class': 'post-image-input'
         })
 
 class SearchFilterForm(forms.Form):
