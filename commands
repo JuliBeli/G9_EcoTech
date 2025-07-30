@@ -1,6 +1,0 @@
-﻿in manage.py's directory
-python manage.py makemigrations
-python manage.py migrate
-execute these two commands above whenever making changes in database
-python manage.py runserver
-python manage.py load_data sample.json
