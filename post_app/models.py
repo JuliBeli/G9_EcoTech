@@ -41,7 +41,7 @@ class PostRaw(models.Model):
     def __str__(self):
         return self.title
 
-#reset password
+#reset passw
 class PasswordResetCode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=6)

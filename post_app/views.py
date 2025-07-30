@@ -83,7 +83,6 @@ def login_view(request):
     return render(request, 'registration/login.html', {'form': form})
 
 
-
 @never_cache
 def register_request(request):
     if request.method == "POST":
