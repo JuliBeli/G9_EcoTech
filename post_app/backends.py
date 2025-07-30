@@ -10,14 +10,14 @@ class CustomEmailBackend(DjangoEmailBackend):
         if self.connection:
             return False
         try:
-            # 创建SMTP连接
+            
             self.connection = smtplib.SMTP(self.host, self.port, timeout=self.timeout)
             self.connection.ehlo()
 
             if self.use_tls:
-                # 使用certifi提供的证书包创建SSL上下文
+                
                 context = ssl.create_default_context(cafile=certifi.where())
-                # 如果还是有问题，可以降低安全级别
+                
                 context.check_hostname = False
                 context.verify_mode = ssl.CERT_NONE
 
@@ -28,7 +28,7 @@ class CustomEmailBackend(DjangoEmailBackend):
                 self.connection.login(self.username, self.password)
             return True
         except Exception as e:
-            print(f"邮件连接失败: {e}")
+            print(f"fail to connect email: {e}")
             if not self.fail_silently:
                 raise
             return False
