@@ -27,11 +27,22 @@ from .models import PasswordResetCode, PostRaw
 from .services.email_service import EmailService
 from django.shortcuts import get_object_or_404
 from . import global_trie
+from django.db import models
 
 
 @login_required()
 def post_detail(request, post_id):
     post = get_object_or_404(PostRaw, id=post_id)
+
+    # Saving the viewed post's detauls in the session
+    recently_viewed_posts = request.session.get('recently_viewed_posts', [])
+    if post_id not in recently_viewed_posts:
+        recently_viewed_posts.insert(0, post_id)
+
+    if len(recently_viewed_posts) > 10:
+        recently_viewed_posts = recently_viewed_posts[:10] # take most recent posts
+
+    request.session['recently_viewed_posts'] = recently_viewed_posts
     return render(request, 'post_detail.html', {'post': post})
 
 # class JSONResponse(HttpResponse):
@@ -201,6 +212,17 @@ def search_suggestions(request):
 def search_results(request):
     if request.method == "GET":
         form = SearchFilterForm(request.GET or None)
+
+        search_performed = any([
+            request.GET.get('q'),
+            request.GET.get('post_type'),
+            request.GET.get('post_type'),
+            request.GET.get('author'),
+            request.GET.get('date_range'),
+            request.GET.get('sort'),
+            request.GET.get('length')
+        ])
+
         if form.is_valid():
             q = form.cleaned_data["q"] # since the query is a going to be given by the user we are not using .get
             post_type = form.cleaned_data.get("post_type")
@@ -210,7 +232,7 @@ def search_results(request):
             # end_date = form.cleaned_data.get('end_date')
             sort_choice = form.cleaned_data.get('sort')
             length = form.cleaned_data.get('length')
-            posts = QuerySet()
+            posts = PostRaw.objects.none()
             if q:
                 title_qs = PostRaw.objects.filter(title__icontains=q)
                 content_qs = PostRaw.objects.filter(content__icontains=q)
@@ -262,15 +284,77 @@ def search_results(request):
                             return 'long'
                     posts = [p for p in posts if get_length(p) == length]
 
+            # Getting the recently viewed posts from Session
+            recently_viewed_ids = request.session.get('recently_viewed_posts', [])
+            recently_viewed_posts = list(
+                PostRaw.objects.filter(id__in = recently_viewed_ids)
+                .order_by(models.Case(*[models.When(pk = pk, then = pos) for pos, pk in enumerate(recently_viewed_ids)]))
+            ) if recently_viewed_ids else []
 
+            context = {
+                "posts": posts,
+                "form":form,
+                "search_performed": search_performed,
+                "recently_viewed_posts": recently_viewed_posts,
+                "last_search": {
+                    'q': request.COOKIES.get('last_q', ''),
+                    'post_type': request.COOKIES.get('last_post_type', ''),
+                    'author': request.COOKIES.get('last_author', ''),
+                    'date_range': request.COOKIES.get('last_date_range', ''),
+                    'sort': request.COOKIES.get('last_sort', ''),
+                    'length': request.COOKIES.get('last_length', ''),
+                }
+            }
 
-            return render(request, 'results.html', {"posts": posts, "form":form})
+            response = render(request, 'results.html', context)
+        #     Update the Cookies with the new filter data
+            if search_performed:
+                response.set_cookie('last_q', q or '', max_age=30 * 24 * 60 * 60)
+                response.set_cookie('last_post_type', post_type or '', max_age=30 * 24 * 60 * 60)
+                response.set_cookie('last_author', author or '', max_age=30 * 24 * 60 * 60)
+                response.set_cookie('last_date_range', date_range or '', max_age=30 * 24 * 60 * 60)
+                response.set_cookie('last_sort', sort_choice or '', max_age=30 * 24 * 60 * 60)
+                response.set_cookie('last_length', length or '', max_age=30 * 24 * 60 * 60)
+
+            return response
         else:
-            form = SearchFilterForm()
-            return render(request, "results.html", {"form": form})
+            # even if the form is not valid we can still show the last viewd posts and the last search from cookies
+            recently_viewed_ids = request.session.get('recently_viewed_posts', [])
+            recently_viewed_posts = list(
+                PostRaw.objects.filter(id__in=recently_viewed_ids)
+                .order_by(models.Case(*[models.When(pk=pk, then=pos) for pos, pk in enumerate(recently_viewed_ids)]))
+            ) if recently_viewed_ids else []
+
+            context = {
+                "form": form,
+                "recently_viewed_posts": recently_viewed_posts,
+                "last_search": {
+                    'q': request.COOKIES.get('last_q', ''),
+                    'post_type': request.COOKIES.get('last_post_type', ''),
+                    'author': request.COOKIES.get('last_author', ''),
+                    'date_range': request.COOKIES.get('last_date_range', ''),
+                    'sort': request.COOKIES.get('last_sort', ''),
+                    'length': request.COOKIES.get('last_length', ''),
+                }
+            }
+            # form = SearchFilterForm()
+            return render(request, "results.html", context)
     else:
+        # We can show to recently viewed posts
         form = SearchFilterForm()
-        return render(request, "results.html", {"form": form})
+
+        recently_viewed_ids = request.session.get('recently_viewed_posts', [])
+        recently_viewed_posts = list(
+            PostRaw.objects.filter(id__in=recently_viewed_ids)
+            .order_by(models.Case(*[models.When(pk=pk, then=pos) for pos, pk in enumerate(recently_viewed_ids)]))
+        ) if recently_viewed_ids else []
+
+        context = {
+            "form": form,
+            "recently_viewed_posts": recently_viewed_posts
+        }
+
+        return render(request, "results.html", context)
 
 # focus with growing  trees
 @login_required

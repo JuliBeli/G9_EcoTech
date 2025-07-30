@@ -698,3 +698,54 @@ a {
     border: none;
     background-color: inherit;
 }
+
+.recently-viewed-section {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.recent-post-card {
+    cursor: pointer;
+    height: 100%;
+}
+
+.recent-post-card:hover {
+    text-decoration: none !important;
+}
+
+.welcome-message, .no-results {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin: 2rem auto;
+    max-width: 500px;
+}
+
+.search-results-info {
+    text-align: center;
+    padding: 10px;
+    background-color: #e8f4fd;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+/* Enhance existing article cards */
+.article-card-vertical {
+    transition: all 0.2s ease;
+}
+
+.article-card-vertical:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.post-meta i {
+    font-size: 0.9em;
+}
